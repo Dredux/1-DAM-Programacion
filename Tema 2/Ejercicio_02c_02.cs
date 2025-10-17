@@ -3,20 +3,13 @@ public class Ejercicio
 {
     static void Main()
     {
-        Console.WriteLine("Dame un numero:");
-        int num1 = Convert.ToInt32(Console.ReadLine());
-        
-        Console.WriteLine("Dame otro numero:");
-        int num2 = Convert.ToInt32(Console.ReadLine());
-        
-        if(num1 > num2)
+        for (int i = 1; i <= 5; i++)
         {
-            Console.WriteLine("El mayor es " + num1);
-        } 
-        
-        if(num1 < num2)
-        {
-            Console.WriteLine("El mayor es " + num2);
+            for (int j = 1; j <= i; j++)
+            {
+                Console.Write(j);
+            }
+            Console.WriteLine();
         }
     }
 }

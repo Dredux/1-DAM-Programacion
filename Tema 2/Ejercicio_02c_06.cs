@@ -3,15 +3,21 @@ public class Ejercicio
 {
     static void Main()
     {
-        Console.WriteLine("Dame un numero:");
+        Console.WriteLine("Introduce el tamaño del triangulo:");
         int num = Convert.ToInt32(Console.ReadLine());
         
-        if(num % 2 == 0 && num % 3 == 0)
+        for (int i = 1; i <= num; i++)
         {
-            Console.WriteLine(num + " es multiplo de 2 y de 3");
-        } else
-        {
-            Console.WriteLine(num + " no es multiplo de 2 y de 3");
+            for (int j = 0; j < num - i; j++)
+            {
+                Console.Write(" ");
+            }
+
+            for (int k = 0; k < i; k++)
+            {
+                Console.Write("*");
+            }
+            Console.WriteLine();
         }
     }
 }

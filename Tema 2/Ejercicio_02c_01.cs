@@ -3,12 +3,12 @@ public class Ejercicio
 {
     static void Main()
     {
-        Console.WriteLine("Escribe un numero:");
-        int numero = Convert.ToInt32(Console.ReadLine());
-        
-        if(numero % 2 == 0)
+        for (int i = 1; i <= 3; i++)
         {
-            Console.WriteLine("Es par");
+            for (int j = 1; j <= 5; j++)
+            {
+                Console.Write(j);
+            }
         }
     }
 }
