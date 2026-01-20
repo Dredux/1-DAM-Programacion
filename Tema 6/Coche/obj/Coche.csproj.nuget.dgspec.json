@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\GeoNe\\Documents\\Repositorios\\Programacion\\1-DAM-Programacion\\Tema 6\\Coche\\Coche.csproj": {}
+    "/home/runner/work/1-DAM-Programacion/1-DAM-Programacion/Tema 6/Coche/Coche.csproj": {}
   },
   "projects": {
-    "C:\\Users\\GeoNe\\Documents\\Repositorios\\Programacion\\1-DAM-Programacion\\Tema 6\\Coche\\Coche.csproj": {
+    "/home/runner/work/1-DAM-Programacion/1-DAM-Programacion/Tema 6/Coche/Coche.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\GeoNe\\Documents\\Repositorios\\Programacion\\1-DAM-Programacion\\Tema 6\\Coche\\Coche.csproj",
+        "projectUniqueName": "/home/runner/work/1-DAM-Programacion/1-DAM-Programacion/Tema 6/Coche/Coche.csproj",
         "projectName": "Coche",
-        "projectPath": "C:\\Users\\GeoNe\\Documents\\Repositorios\\Programacion\\1-DAM-Programacion\\Tema 6\\Coche\\Coche.csproj",
-        "packagesPath": "C:\\Users\\GeoNe\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\GeoNe\\Documents\\Repositorios\\Programacion\\1-DAM-Programacion\\Tema 6\\Coche\\obj\\",
+        "projectPath": "/home/runner/work/1-DAM-Programacion/1-DAM-Programacion/Tema 6/Coche/Coche.csproj",
+        "packagesPath": "/home/runner/.nuget/packages/",
+        "outputPath": "/home/runner/work/1-DAM-Programacion/1-DAM-Programacion/Tema 6/Coche/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\GeoNe\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/runner/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -61,7 +59,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/10.0.101/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
