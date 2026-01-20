@@ -1,12 +1,12 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\GeoNe\\Documents\\Repositorios\\Programacion\\Tema 6\\Ejercicio_06a_01\\",
+  "WorkspaceRootPath": "C:\\Users\\GeoNe\\Documents\\Repositorios\\Programacion\\1-DAM-Programacion\\Tema 6\\Ejercicio_06a_01\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3CA93EDB-921F-44F3-A484-D7BA582EA2B4}|..\\Ejercicio_06a_02\\Ejercicio_06a_02.csproj|c:\\users\\geone\\documents\\repositorios\\programacion\\tema 6\\ejercicio_06a_02\\pruebalibro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5EFC55DF-9948-43CF-8B0D-1D6BD587AEBE}|..\\Ejercicio_06a_03\\Ejercicio_06a_03.csproj|c:\\users\\geone\\documents\\repositorios\\programacion\\1-dam-programacion\\tema 6\\ejercicio_06a_03\\pruebacoche.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3CA93EDB-921F-44F3-A484-D7BA582EA2B4}|..\\Ejercicio_06a_02\\Ejercicio_06a_02.csproj|c:\\users\\geone\\documents\\repositorios\\programacion\\tema 6\\ejercicio_06a_02\\libro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5EFC55DF-9948-43CF-8B0D-1D6BD587AEBE}|..\\Ejercicio_06a_03\\Ejercicio_06a_03.csproj|c:\\users\\geone\\documents\\repositorios\\programacion\\1-dam-programacion\\tema 6\\ejercicio_06a_03\\coche.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -20,34 +20,28 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Libro.cs",
-              "DocumentMoniker": "C:\\Users\\GeoNe\\Documents\\Repositorios\\Programacion\\Tema 6\\Ejercicio_06a_02\\Libro.cs",
-              "RelativeDocumentMoniker": "..\\Ejercicio_06a_02\\Libro.cs",
-              "ToolTip": "C:\\Users\\GeoNe\\Documents\\Repositorios\\Programacion\\Tema 6\\Ejercicio_06a_02\\Libro.cs",
-              "RelativeToolTip": "..\\Ejercicio_06a_02\\Libro.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "PruebaCoche.cs",
+              "DocumentMoniker": "C:\\Users\\GeoNe\\Documents\\Repositorios\\Programacion\\1-DAM-Programacion\\Tema 6\\Ejercicio_06a_03\\PruebaCoche.cs",
+              "RelativeDocumentMoniker": "..\\Ejercicio_06a_03\\PruebaCoche.cs",
+              "ToolTip": "C:\\Users\\GeoNe\\Documents\\Repositorios\\Programacion\\1-DAM-Programacion\\Tema 6\\Ejercicio_06a_03\\PruebaCoche.cs",
+              "RelativeToolTip": "..\\Ejercicio_06a_03\\PruebaCoche.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAABhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-20T10:42:33.056Z",
+              "WhenOpened": "2026-01-20T11:36:35.585Z",
               "EditorCaption": ""
-            }
-          ]
-        },
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
+            },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "PruebaLibro.cs",
-              "DocumentMoniker": "C:\\Users\\GeoNe\\Documents\\Repositorios\\Programacion\\Tema 6\\Ejercicio_06a_02\\PruebaLibro.cs",
-              "RelativeDocumentMoniker": "..\\Ejercicio_06a_02\\PruebaLibro.cs",
-              "ToolTip": "C:\\Users\\GeoNe\\Documents\\Repositorios\\Programacion\\Tema 6\\Ejercicio_06a_02\\PruebaLibro.cs*",
-              "RelativeToolTip": "..\\Ejercicio_06a_02\\PruebaLibro.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "Coche.cs",
+              "DocumentMoniker": "C:\\Users\\GeoNe\\Documents\\Repositorios\\Programacion\\1-DAM-Programacion\\Tema 6\\Ejercicio_06a_03\\Coche.cs",
+              "RelativeDocumentMoniker": "..\\Ejercicio_06a_03\\Coche.cs",
+              "ToolTip": "C:\\Users\\GeoNe\\Documents\\Repositorios\\Programacion\\1-DAM-Programacion\\Tema 6\\Ejercicio_06a_03\\Coche.cs",
+              "RelativeToolTip": "..\\Ejercicio_06a_03\\Coche.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-20T10:48:58.111Z",
+              "WhenOpened": "2026-01-20T11:31:59.935Z",
               "EditorCaption": ""
             }
           ]

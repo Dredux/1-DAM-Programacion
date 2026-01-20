@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\GeoNe\\Documents\\Repositorios\\Programacion\\Tema 6\\Ejercicio_06a_01\\Ejercicio_06a_01.csproj",
+      "projectUniqueName": "C:\\Users\\GeoNe\\Documents\\Repositorios\\Programacion\\1-DAM-Programacion\\Tema 6\\Ejercicio_06a_01\\Ejercicio_06a_01.csproj",
       "projectName": "Ejercicio_06a_01",
-      "projectPath": "C:\\Users\\GeoNe\\Documents\\Repositorios\\Programacion\\Tema 6\\Ejercicio_06a_01\\Ejercicio_06a_01.csproj",
+      "projectPath": "C:\\Users\\GeoNe\\Documents\\Repositorios\\Programacion\\1-DAM-Programacion\\Tema 6\\Ejercicio_06a_01\\Ejercicio_06a_01.csproj",
       "packagesPath": "C:\\Users\\GeoNe\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\GeoNe\\Documents\\Repositorios\\Programacion\\Tema 6\\Ejercicio_06a_01\\obj\\",
+      "outputPath": "C:\\Users\\GeoNe\\Documents\\Repositorios\\Programacion\\1-DAM-Programacion\\Tema 6\\Ejercicio_06a_01\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\GeoNe\\AppData\\Roaming\\NuGet\\NuGet.Config",
