@@ -1,5 +1,5 @@
 <Solution>
-  <Project Path="Ejercicio_06a_01/Ejercicio_06a_01.csproj" />
-  <Project Path="Ejercicio_06a_02/Ejercicio_06a_02.csproj" Id="3ca93edb-921f-44f3-a484-d7ba582ea2b4" />
-  <Project Path="Ejercicio_06a_03/Ejercicio_06a_03.csproj" Id="5efc55df-9948-43cf-8b0d-1d6bd587aebe" />
+  <Project Path="Persona/Persona.csproj" />
+  <Project Path="Libro/Libro.csproj" Id="3ca93edb-921f-44f3-a484-d7ba582ea2b4" />
+  <Project Path="Coche/Coche.csproj" Id="5efc55df-9948-43cf-8b0d-1d6bd587aebe" />
 </Solution>
