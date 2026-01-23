@@ -162,17 +162,7 @@
         {
             if (agenda[i].ciudad.ToLower() == ciudadBuscada.ToLower())
             {
-                Console.WriteLine("{0}, {1}, {2}, {3}, " +
-                    "{4}/{5}/{6}",
-                    agenda[i].nombreApellidos,
-                    agenda[i].direccion,
-                    agenda[i].telefono,
-                    agenda[i].ciudad,
-                    agenda[i].fechaNacimiento.dia.
-                        ToString("00"),
-                    agenda[i].fechaNacimiento.mes.
-                        ToString("00"),
-                    agenda[i].fechaNacimiento.anyo);
+                MostrarContacto(agenda, i);
                 encontrado = true;
             }
         }
@@ -190,17 +180,7 @@
         {
             if (agenda[i].fechaNacimiento.anyo == anyoBuscado)
             {
-                Console.WriteLine("{0}, {1}, {2}, {3}, " +
-                    "{4}/{5}/{6}",
-                    agenda[i].nombreApellidos,
-                    agenda[i].direccion,
-                    agenda[i].telefono,
-                    agenda[i].ciudad,
-                    agenda[i].fechaNacimiento.dia.
-                        ToString("00"),
-                    agenda[i].fechaNacimiento.mes.
-                        ToString("00"),
-                    agenda[i].fechaNacimiento.anyo);
+                MostrarContacto(agenda, i);
                 encontrado = true;
             }
         }
@@ -231,19 +211,23 @@
         Console.WriteLine("\n== CONTACTOS ORDENADOS POR NOMBRE ==");
         for (int i = 0; i < cantidad; i++)
         {
-            Console.WriteLine("{0}, {1}, {2}, {3}, " +
-                "{4}/{5}/{6}",
-                agenda[i].nombreApellidos,
-                agenda[i].direccion,
-                agenda[i].telefono,
-                agenda[i].ciudad,
-                agenda[i].fechaNacimiento.dia.
-                    ToString("00"),
-                agenda[i].fechaNacimiento.mes.
-                    ToString("00"),
-                agenda[i].fechaNacimiento.anyo);
-
+            MostrarContacto(agenda, i);
         }
+    }
+
+    public static void MostrarContacto(Contacto[] agenda, int i) 
+    {
+        Console.WriteLine("{0}, {1}, {2}, {3}, " +
+            "{4}/{5}/{6}",
+            agenda[i].nombreApellidos,
+            agenda[i].direccion,
+            agenda[i].telefono,
+            agenda[i].ciudad,
+            agenda[i].fechaNacimiento.dia.
+                ToString("00"),
+            agenda[i].fechaNacimiento.mes.
+                ToString("00"),
+            agenda[i].fechaNacimiento.anyo);
     }
 
     static void Main()
