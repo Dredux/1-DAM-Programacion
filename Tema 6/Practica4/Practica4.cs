@@ -32,14 +32,14 @@
         {
             opcion = (opciones)Convert.ToInt32(Console.ReadLine());
         }
-        catch (Exception e) 
-        { 
+        catch (Exception e)
+        {
             Console.WriteLine("ERROR: " + e.Message);
         }
         return opcion;
     }
 
-    public static void NuevoContacto(Contacto[] agenda, ref int cantidad) 
+    public static void NuevoContacto(Contacto[] agenda, ref int cantidad)
     {
         Contacto nuevo;
         bool fechaValida;
@@ -118,24 +118,13 @@
         Console.WriteLine("Contacto añadido correctamente.");
     }
 
-    public static void BorrarContacto(Contacto[] agenda, ref int cantidad) 
+    public static void BorrarContacto(Contacto[] agenda, ref int cantidad)
     {
         int posicion;
         Console.WriteLine("\n== CONTACTOS ACTUALES ==");
         for (int i = 0; i < cantidad; i++)
         {
-            Console.WriteLine("{0}. {1}, {2}, {3}, {4}, " +
-                "{5}/{6}/{7}",
-                i + 1,
-                agenda[i].nombreApellidos,
-                agenda[i].direccion,
-                agenda[i].telefono,
-                agenda[i].ciudad,
-                agenda[i].fechaNacimiento.dia.
-                    ToString("00"),
-                agenda[i].fechaNacimiento.mes.
-                    ToString("00"),
-                agenda[i].fechaNacimiento.anyo);
+            MostrarContacto(agenda, i);
         }
 
         do
@@ -155,7 +144,7 @@
         Console.WriteLine("Contacto borrado correctamente.");
     }
 
-    public static void MostrarContactosCiudad(Contacto[] agenda, int cantidad, string ciudadBuscada) 
+    public static void MostrarContactosCiudad(Contacto[] agenda, int cantidad, string ciudadBuscada)
     {
         bool encontrado = false;
         for (int i = 0; i < cantidad; i++)
@@ -173,7 +162,7 @@
         }
     }
 
-    public static void MostrarContactosAnyo(Contacto[] agenda, int cantidad, int anyoBuscado) 
+    public static void MostrarContactosAnyo(Contacto[] agenda, int cantidad, int anyoBuscado)
     {
         bool encontrado = false;
         for (int i = 0; i < cantidad; i++)
@@ -192,7 +181,7 @@
         }
     }
 
-    public static void OrdenarContactos(Contacto[] agenda, int cantidad) 
+    public static void OrdenarContactos(Contacto[] agenda, int cantidad)
     {
         for (int i = 0; i < cantidad - 1; i++)
         {
@@ -215,7 +204,7 @@
         }
     }
 
-    public static void MostrarContacto(Contacto[] agenda, int i) 
+    public static void MostrarContacto(Contacto[] agenda, int i)
     {
         Console.WriteLine("{0}, {1}, {2}, {3}, " +
             "{4}/{5}/{6}",
@@ -239,7 +228,7 @@
         do
         {
             opcion = MostrarMenu();
-            switch (opcion) 
+            switch (opcion)
             {
                 case opciones.NUEVO:
                     if (cantidad < CAPACIDAD)
