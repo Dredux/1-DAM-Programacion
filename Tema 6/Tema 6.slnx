@@ -2,5 +2,6 @@
   <Project Path="Coche/Coche.csproj" Id="5efc55df-9948-43cf-8b0d-1d6bd587aebe" />
   <Project Path="Libro/Libro.csproj" Id="3ca93edb-921f-44f3-a484-d7ba582ea2b4" />
   <Project Path="Persona/Persona.csproj" />
+  <Project Path="Polizas/Polizas.csproj" Id="dc0dff9b-00a3-4b3d-a563-cc2f577766ff" />
   <Project Path="Practica4/Practica4.csproj" Id="ce3c338a-a15f-4d77-912f-8ed995c8ba66" />
 </Solution>

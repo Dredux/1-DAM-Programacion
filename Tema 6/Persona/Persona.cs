@@ -1,13 +1,13 @@
 ﻿class Persona
 {
-    string nombre;
+    protected string nombre;
 
     public Persona(string nombre)
     {
         this.nombre = nombre;
     }
 
-    public void Saludar() 
+    public virtual void Saludar() 
     {
         Console.WriteLine("Hola, soy " + nombre);
     }
