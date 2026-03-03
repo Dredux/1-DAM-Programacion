@@ -5,7 +5,7 @@
 
     protected Electrodomestico(string nombre, bool encendido, float temperatura) : base(nombre)
     {
-        encendido = false;
+        this.encendido = encendido;
         this.temperatura = temperatura;
     }
 

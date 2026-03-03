@@ -1,0 +1,4 @@
+﻿enum Opciones
+{
+    NUEVO = 1, BORRAR, BUSCAR_CIUDAD, BUSCAR_ANYO, ORDENAR, SALIR
+}

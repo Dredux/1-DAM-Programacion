@@ -1,0 +1,16 @@
+﻿public enum Rango
+{
+    CIUDADANO = 0,
+    ALFEREZ = 1,
+    TENIENTE_MENOR = 2,
+    TENIENTE_SEGUNDO = 3,
+    TENIENTE_MAYOR = 4,
+    CAPITAN = 5,
+    COMANDANTE = 6,
+    COMODORO = 7,
+    CONTRALMIRANTE = 8,
+    VICE_ALMIRANTE = 9,
+    ALMIRANTE = 10,
+    ALMIRANTE_DE_FLOTA = 11,
+    GRAN_ALMIRANTE = 12
+}

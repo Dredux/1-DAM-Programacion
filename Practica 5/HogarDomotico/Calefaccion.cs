@@ -7,34 +7,30 @@
         get { return temperatura; }
         set
         {
-            if (value < 15 && value > 30)
+            if (value >= 15 && value <= 30)
             {
                 temperatura = value;
-            }
-            else
-            {
-                temperatura = 15;
             }
         }
     }
 
     public void Apagar()
     {
-        throw new NotImplementedException();
+        encendido = false;
     }
 
     public bool Consultar()
     {
-        throw new NotImplementedException();
+        return encendido;
     }
 
     public void Encender()
     {
-        throw new NotImplementedException();
+        encendido = true;
     }
 
     public override void Mostrar()
     {
-        Console.WriteLine("Nombre: {0}, Estado: {1}, Temperatura: {2}", Nombre, encendido, temperatura);
+        Console.WriteLine(" " + Nombre + " (" + temperatura + ")ºC");
     }
 }

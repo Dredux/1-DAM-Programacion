@@ -1,29 +1,29 @@
 ﻿class Luz : ElementoDomotico, IEncendible
 {
-    bool encendida;
+    bool encendido;
 
     public Luz(string nombre) : base(nombre)
     {
-        encendida = false;
+        encendido = false;
     }
 
     public void Apagar()
     {
-        throw new NotImplementedException();
+        encendido = false;
     }
 
     public bool Consultar()
     {
-        throw new NotImplementedException();
+        return encendido;
     }
 
     public void Encender()
     {
-        throw new NotImplementedException();
+        encendido = true;
     }
 
     public override void Mostrar()
     {
-        Console.WriteLine("Nombre: {0}, Estado: {1}", Nombre, encendida);
+        Console.WriteLine(" " + Nombre);
     }
 }
