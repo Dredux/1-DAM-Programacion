@@ -1,8 +1,8 @@
 ﻿class Mision : IComparable<Mision>, IGestor
 {
-    protected int codigo;
-    protected Estado estado;
-    protected Ciudadano responsable;
+    public int Codigo { get; set; }
+    public Estado Estado { get; set; }
+    public Ciudadano Responsable { get; set; }
 
     public Mision(Estado estado, Ciudadano responsable)
     {
@@ -32,30 +32,10 @@
     }
     #endregion
 
-    #region Getters / Setters
-    public int Codigo
-    {
-        get { return codigo; }
-        set { codigo = value; }
-    }
-
-    public Estado Estado 
-    {
-        get { return estado; }
-        set { estado = value; }
-    }
-
-    public Ciudadano Responsable
-    {
-        get { return responsable; }
-        set { responsable = value; }
-    }
-    #endregion
-
     public int CompareTo(Mision? other)
     {
         if (other == null) { return 1; }
-        return codigo.CompareTo(other.codigo);
+        return Codigo.CompareTo(other.Codigo);
     }
 
     public override string ToString()
