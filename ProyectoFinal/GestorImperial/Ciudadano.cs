@@ -4,35 +4,57 @@
     public string Nombre { get; set; }
     public int Edad { get; set; }
     public Rango Rango { get; set; }
+    public Sector Sector { get; set; }
     public bool Supervisor { get; set; }
     public List<Mision> Expediente { get; set; }
 
-    public Ciudadano(string nombre, int edad)
+    public Ciudadano(string nombre, int edad, Sector sector)
     {
         Nombre = nombre;
         Edad = edad;
         Rango = Rango.CIUDADANO;
+        Sector = sector;
         Supervisor = false;
         Expediente = new List<Mision>();
     }
 
     #region Gestor
-    public static void gestionarCiudadano()
+    public void GestionarElemento(Ciudadano ciudadano)
+    {
+        Console.WriteLine("\n* Administrador de Campañas *");
+        Console.WriteLine("Seleccione una opcion:");
+        Console.WriteLine("1- Añadir * * *.");
+        Console.WriteLine("2- Modificar * * *.");
+        Console.WriteLine("3- Mostrar datos.");
+        int opcion = Convert.ToInt32(Console.ReadLine());
+        switch (opcion)
+        {
+            case 1:
+                AgregarElemento();
+                break;
+            case 2:
+                ModificarElemento(ciudadano);
+                break;
+            case 3:
+                MostrarElemento();
+                break;
+            default:
+                Console.WriteLine("Error: Opcion no valida");
+                break;
+        }
+    }
+
+    public void AgregarElemento()
     {
         throw new NotImplementedException();
     }
 
-    public void agregarElemento()
+    public void ModificarElemento(Ciudadano ciudadano)
     {
         throw new NotImplementedException();
     }
 
-    public void modificarElemento()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void mostrarElementos()
+    public void MostrarElemento()
     {
         throw new NotImplementedException();
     }
