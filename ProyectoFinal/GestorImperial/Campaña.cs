@@ -1,19 +1,19 @@
 ﻿class Campaña : IComparable<Campaña>, IGestor
 {
     #region Propiedades
-    public int Codigo { get; set; }
-    public Ciudadano Supervisor { get; set; }
-    public Sector Sector { get; set; }
-    public SortedSet<Ciudadano> ListaMiembros { get; set; }
-    public SortedSet<Mision> ListaMisiones { get; set; }
-    public HashSet<Recursos> ListaRecursos { get; set; }
-    public DateTime FechaInicio { get; set; }
-    public DateTime FechaFin { get; set; }
+    public int codigo;
+    public Ciudadano? supervisor;
+    public Sector sector;
+    public DateTime fechaInicio;
+    public DateTime fechaFin;
+    public SortedSet<Ciudadano> listaMiembros;
+    public SortedSet<Mision> listaMisiones;
+    public HashSet<Recursos> listaRecursos;
 
     public struct Recursos
     {
-        public string tipo { get; set; }
-        public int cantidad { get; set; }
+        public string tipo;
+        public int cantidad;
     }
     #endregion
 
@@ -32,30 +32,10 @@
     #region Gestor
     public void GestionarElemento(Ciudadano ciudadano)
     {
-        Console.WriteLine("\n* Administrador de Campañas *");
-        Console.WriteLine("Seleccione una opcion:");
-        Console.WriteLine("1- Añadir * * *.");
-        Console.WriteLine("2- Modificar * * *.");
-        Console.WriteLine("3- Mostrar datos.");
-        int opcion = Convert.ToInt32(Console.ReadLine());
-        switch (opcion)
-        {
-            case 1:
-                AgregarElemento();
-                break;
-            case 2:
-                ModificarElemento(ciudadano);
-                break;
-            case 3:
-                MostrarElemento();
-                break;
-            default:
-                Console.WriteLine("Error: Opcion no valida");
-                break;
-        }
+        throw new NotImplementedException();
     }
 
-    public void AgregarElemento()
+    public void AgregarElemento(Ciudadano ciudadano)
     {
         throw new NotImplementedException();
     }
@@ -65,9 +45,60 @@
         throw new NotImplementedException();
     }
 
-    public void MostrarElemento()
+    public void EliminarElemento(Ciudadano ciudadano)
     {
         throw new NotImplementedException();
+    }
+
+    #endregion
+
+    #region Getters y Setters
+    public int Codigo
+    {
+        get { return codigo; }
+        set { codigo = value; }
+    }
+
+    public Ciudadano Supervisor
+    {
+        get { return supervisor; }
+        set { supervisor = value; }
+    }
+
+    public Sector Sector
+    {
+        get { return sector; }
+        set { sector = value; }
+    }
+
+    public DateTime FechaInicio
+    {
+        get { return fechaInicio; }
+        set { fechaInicio = value; }
+    }
+
+    public DateTime FechaFin
+    {
+        get { return fechaFin; }
+        set { fechaFin = value; }
+    }
+
+    public SortedSet<Ciudadano> ListaMiembros
+    {
+        get { return listaMiembros; }
+        set { listaMiembros = value; }
+    }
+
+    public SortedSet<Mision> ListaMisiones
+    {
+        get { return listaMisiones; }
+        set { listaMisiones = value; }
+    }
+
+    public HashSet<Recursos> ListaRecursos
+    {
+        get { return listaRecursos; }
+        set { listaRecursos = value; }
     }
     #endregion
 
@@ -86,6 +117,8 @@
 
     public override string ToString()
     {
-        return "Codigo: "+Codigo+", Supervisor: "+Supervisor+", Sector: "+Sector;
+        return "\nCodigo: " + Codigo 
+            + "\nSupervisor: " + Supervisor.Nombre
+            + "\nSector: "+ Sector;
     }
 }

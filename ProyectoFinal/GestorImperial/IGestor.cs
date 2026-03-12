@@ -1,7 +1,7 @@
 ﻿interface IGestor
 {
     public void GestionarElemento(Ciudadano ciudadano);
-    public void AgregarElemento();
+    public void AgregarElemento(Ciudadano ciudadano);
     public void ModificarElemento(Ciudadano ciudadano);
-    public void MostrarElemento();
+    public void EliminarElemento(Ciudadano ciudadano);
 }

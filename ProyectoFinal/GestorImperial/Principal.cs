@@ -1,18 +1,10 @@
-﻿class Principal : IGestor
+﻿class Principal
 {
-    public SortedSet<Sector> listaSectores { get; set; }
-
-    public Principal()
-    {
-        listaSectores = new SortedSet<Sector>();
-        generarSectores();
-    }
-
     static void Main(string[] args)
     {
-        Principal app = new Principal();
+        generarSectores();
         Pases pases = new Pases();
-        Ciudadano? ciudadano;
+        Ciudadano ciudadano;
         Rango paseAsignado;
         bool salir = false, valido = false;
         int id, opcion;
@@ -22,16 +14,16 @@
         {
             Console.Write("Ingrese un numero de identificacion: ");
             id = Convert.ToInt32(Console.ReadLine());
-            ciudadano = app.obtenerUsuario(id);
+            ciudadano = obtenerUsuario(id);
 
             if (ciudadano != null && ciudadano.Rango >= Rango.TENIENTE)
             {
                 valido = true;
-                Console.WriteLine("\nAcceso concedido: Bienvenido " + ciudadano.Nombre.ToUpper());
+                Console.WriteLine("Acceso concedido: Bienvenido " + ciudadano.Nombre.ToUpper());
             }
             else
             {
-                Console.WriteLine("\nError: Usuario " + id + " no valido.");
+                Console.WriteLine("Error: Usuario " + id + " no valido.\n");
             }
         }
         while (!valido);
@@ -45,7 +37,7 @@
 
             if (opcion == 1)
             {
-                paseAsignado = ciudadano.Rango;
+                paseAsignado = ciudadano!.Rango;
                 switch (paseAsignado)
                 {
                     case Rango.TENIENTE:
@@ -74,55 +66,13 @@
         while (!salir);
     }
 
-    #region Gestor
-    public void GestionarElemento(Ciudadano ciudadano)
-    {
-        Console.WriteLine("\n* Administrador de Sectores *");
-        Console.WriteLine("Seleccione una opcion:");
-        Console.WriteLine("1- Añadir sectores.");
-        Console.WriteLine("2- Modificar sectores.");
-        Console.WriteLine("3- Mostrar datos.");
-        int opcion = Convert.ToInt32(Console.ReadLine());
-        switch (opcion)
-        {
-            case 1:
-                AgregarElemento();
-                break;
-            case 2:
-                ModificarElemento(ciudadano);
-                break;
-            case 3:
-                MostrarElemento();
-                break;
-            default:
-                Console.WriteLine("Error: Opcion no valida");
-                break;
-        }
-    }
-
-    public void AgregarElemento()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void ModificarElemento(Ciudadano ciudadano)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void MostrarElemento()
-    {
-        throw new NotImplementedException();
-    }
-    #endregion
-
-    public void generarSectores()
+    public static void generarSectores()
     {
         Random rm = new Random();
         String caracteres = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
         Ciudadano ciudadano;
         char[] listaCaracteres = caracteres.ToCharArray();
-        
+
         for (int i = 0; i < 10; i++)
         {
             String nombre = "";
@@ -134,29 +84,36 @@
 
             for (int x = 0; x < 8; x++)
             {
-                ciudadano = generarCiudadanos(rm, listaCaracteres, sector);
+                ciudadano = generarCiudadanos(sector);
                 sector.ListaUsuarios.Add(ciudadano);
             }
+
+            Sector.listaSectores.Add(sector);
         }
     }
 
-    public Ciudadano generarCiudadanos(Random rm, char[] lista, Sector sector)
+    public static Ciudadano generarCiudadanos(Sector sector)
     {
+        Random rm = new Random();
+        String caracteres = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+        char[] listaCaracteres = caracteres.ToCharArray();
         String nombre = "";
         int edad = rm.Next(18, 70), numRango = rm.Next(0, 10);
+
         for (int j = 0; j < 8; j++)
         {
-            nombre += lista[rm.Next(lista.Length)];
+            nombre += listaCaracteres[rm.Next(listaCaracteres.Length)];
         }
 
-        Ciudadano encargado = new Ciudadano(nombre.ToLower(), edad, sector);
-        encargado.Rango = (Rango)numRango;
-        return encargado;
+        Ciudadano ciudadano = new Ciudadano(nombre.ToLower(), edad, sector);
+        ciudadano.ID = sector.ListaUsuarios.Count + 1;
+        ciudadano.Rango = (Rango)numRango;
+        return ciudadano;
     }
 
-    public Ciudadano? obtenerUsuario(int id) 
+    public static Ciudadano? obtenerUsuario(int id)
     {
-        foreach (Sector sector in listaSectores)
+        foreach (Sector sector in Sector.listaSectores)
         {
             foreach (Ciudadano ciudadano in sector.ListaUsuarios)
             {
@@ -164,6 +121,51 @@
                 {
                     return ciudadano;
                 }
+            }
+        }
+        return null;
+    }
+
+    public static Mision? ObtenerMision(int codigo)
+    {
+        foreach (Sector sector in Sector.listaSectores)
+        {
+            foreach (Campaña campaña in sector.listaCampañas)
+            {
+                foreach (Mision mision in campaña.ListaMisiones)
+                {
+                    if (mision.codigo == codigo)
+                    {
+                        return mision;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public static Campaña? ObtenerCampaña(int codigo)
+    {
+        foreach (Sector sector in Sector.listaSectores)
+        {
+            foreach (Campaña campaña in sector.listaCampañas)
+            {
+                if (campaña.Codigo == codigo)
+                {
+                    return campaña;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static Sector? ObtenerSector(string nombre)
+    {
+        foreach (Sector sector in Sector.listaSectores)
+        {
+            if (sector.Nombre == nombre)
+            {
+                return sector;
             }
         }
         return null;
