@@ -34,7 +34,7 @@
                 EliminarElemento(ciudadano);
                 break;
             case 4:
-                ToString();
+                Console.WriteLine(ToString());
                 break;
             default:
                 Console.WriteLine("Error: Opcion no valida");
@@ -44,189 +44,151 @@
 
     public void AgregarElemento(Ciudadano ciudadano)
     {
-        if (ciudadano.Rango >= Rango.ALMIRANTE_DE_FLOTA)
+        Ciudadano Usuario;
+        Campaña campaña;
+        Sector sector;
+        string? nombre;
+        int opcion = ObtenerTipoElemento(ciudadano), valor;
+        switch (opcion)
         {
-            Console.WriteLine("\nSeleccione el tipo de elemento:");
-            Console.WriteLine("1- Usuario.");
-            Console.WriteLine("2- Campaña.");
-            Console.WriteLine("3- Sector.");
-            int opcion = Convert.ToInt32(Console.ReadLine());
-            switch (opcion)
-            {
-                case 1:
-                    Console.Write("Nombre: ");
-                    string nombre = Console.ReadLine();
+            case 1:
+                Console.Write("Nombre: ");
+                nombre = Console.ReadLine();
+                Console.Write("Edad: ");
+                valor = Convert.ToInt32(Console.ReadLine());
 
-                    Console.Write("Edad: ");
-                    int edad = Convert.ToInt32(Console.ReadLine());
+                Usuario = new Ciudadano(nombre, valor, this);
+                Usuario.ID = ListaUsuarios.Count + 1;
+                listaUsuarios.Add(Usuario);
 
-                    Ciudadano nuevo = new Ciudadano(nombre, edad, this);
-                    nuevo.ID = ListaUsuarios.Count + 1;
-                    listaUsuarios.Add(nuevo);
-                    break;
-                case 2:
-                    Console.Write("ID del nuevo supervisor: ");
-                    int id = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Usuario agregado exitosamente.");
+                break;
+            case 2:
+                Console.Write("ID del nuevo supervisor: ");
+                valor = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Fecha de inicio de la campaña: ");
+                DateTime fechaInicio = Convert.ToDateTime(Console.ReadLine());
+                Console.Write("Fecha fin de la campaña: ");
+                DateTime fechaFin = Convert.ToDateTime(Console.ReadLine());
 
-                    Console.Write("Fecha de inicio de la campaña: ");
-                    DateTime fechaInicio = Convert.ToDateTime(Console.ReadLine());
+                Usuario = Principal.ObtenerUsuario(valor);
+                campaña = new Campaña(Usuario, this, fechaInicio, fechaFin);
 
-                    Console.Write("Fecha fin de la campaña: ");
-                    DateTime fechaFin = Convert.ToDateTime(Console.ReadLine());
+                Console.WriteLine("Campaña agregada exitosamente.");
 
-                    Campaña campaña = new Campaña(Principal.obtenerUsuario(id), this, fechaInicio, fechaFin);
-                    break;
-                case 3:
-                    Console.Write("Nombre del nuevo sector: ");
-                    string nuevoNombre = Console.ReadLine();
+                break;
+            case 3:
+                Console.Write("Nombre del nuevo sector: ");
+                nombre = Console.ReadLine();
 
-                    Sector sector = new Sector(nuevoNombre);
-                    break;
-                default:
-                    Console.WriteLine("Error: Opcion no valida");
-                    break;
-            }
-        }
-        else
-        {
-            Console.Write("Nombre: ");
-            string nombre = Console.ReadLine();
+                sector = new Sector(nombre);
+                listaSectores.Add(sector);
 
-            Console.Write("Edad: ");
-            int edad = Convert.ToInt32(Console.ReadLine());
-
-            Ciudadano nuevo = new Ciudadano(nombre, edad, this);
-            nuevo.ID = ListaUsuarios.Count + 1;
-            listaUsuarios.Add(nuevo);
+                Console.WriteLine("Sector agregado exitosamente.");
+                break;
+            default:
+                Console.WriteLine("Error: Opcion no valida");
+                break;
         }
     }
 
     public void ModificarElemento(Ciudadano ciudadano)
     {
-        int id;
-        string nuevoNombre;
-        if (ciudadano.Rango >= Rango.ALMIRANTE_DE_FLOTA)
+        Ciudadano? Usuario;
+        Campaña? campaña;
+        Sector? sector;
+        string? nombre;
+        int opcion = ObtenerTipoElemento(ciudadano), valor;
+        switch (opcion)
         {
-            Console.Write("\nSeleccione el tipo de elemento:");
-            Console.WriteLine("1- Usuario.");
-            Console.WriteLine("2- Campaña.");
-            Console.WriteLine("3- Sector.");
-            int seleccion = Convert.ToInt32(Console.ReadLine());
-            switch (seleccion)
-            {
-                case 1:
-                    Console.Write("ID del usuario: ");
-                    id = Convert.ToInt32(Console.ReadLine());
-                    
-                    Console.Write("Nuevo nombre: ");
-                    nuevoNombre = Console.ReadLine();
+            case 1:
+                Console.Write("ID del usuario: ");
+                valor = Convert.ToInt32(Console.ReadLine());
+                Usuario = Principal.ObtenerUsuario(valor);
+                Console.Write("Nuevo nombre: ");
+                nombre = Console.ReadLine();
+                Console.Write("Nueva edad: ");
+                valor = Convert.ToInt32(Console.ReadLine());
 
-                    Console.Write("Nueva edad: ");
-                    int nuevaEdad = Convert.ToInt32(Console.ReadLine());
+                Usuario.Nombre = nombre;
+                Usuario.Edad = valor;
 
-                    Ciudadano antiguo = Principal.obtenerUsuario(id);
-                    antiguo.Nombre = nuevoNombre;
-                    antiguo.Edad = nuevaEdad;
-                    break;
-                case 2:
-                    Console.Write("ID de la campaña: ");
-                    int codigo = Convert.ToInt32(Console.ReadLine());
-                    Campaña campaña = Principal.ObtenerCampaña(codigo);
-
-                    Console.Write("ID del nuevo supervisor: ");
-                    id = Convert.ToInt32(Console.ReadLine());
-                    Ciudadano supervisor = Principal.obtenerUsuario(id);
-
-                    Console.Write("Fecha de inicio de la campaña: ");
-                    DateTime fechaInicio = Convert.ToDateTime(Console.ReadLine());
-
-                    Console.Write("Fecha fin de la campaña: ");
-                    DateTime fechaFin = Convert.ToDateTime(Console.ReadLine());
-
-                    campaña.Supervisor = supervisor;
-                    campaña.FechaInicio = fechaInicio;
-                    campaña.FechaFin = fechaFin;
+                Console.WriteLine("Usuario modificado exitosamente.");
                 break;
-                case 3:
-                    Console.Write("Nombre del sector: ");
-                    string nombreSector = Console.ReadLine();
+            case 2:
+                Console.Write("Codigo de la campaña: ");
+                valor = Convert.ToInt32(Console.ReadLine());
+                campaña = Principal.ObtenerCampaña(valor);
+                Console.Write("ID del nuevo supervisor: ");
+                valor = Convert.ToInt32(Console.ReadLine());
+                Usuario = Principal.ObtenerUsuario(valor);
+                Console.Write("Fecha de inicio de la campaña: ");
+                DateTime fechaInicio = Convert.ToDateTime(Console.ReadLine());
+                Console.Write("Fecha fin de la campaña: ");
+                DateTime fechaFin = Convert.ToDateTime(Console.ReadLine());
 
-                    Console.Write("Nuevo nombre del sector: ");
-                    nuevoNombre = Console.ReadLine();
+                campaña.Supervisor = Usuario;
+                campaña.FechaInicio = fechaInicio;
+                campaña.FechaFin = fechaFin;
 
-                    Principal.ObtenerSector(nombreSector).Nombre = nuevoNombre;
-                    break;
-                default:
-                    Console.WriteLine("Error: Opcion no valida");
-                    break;
-            }
-        }
-        else
-        {
-            Console.Write("ID del usuario: ");
-            id = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Campaña modificada exitosamente.");
+                break;
+            case 3:
+                Console.Write("Nombre del sector: ");
+                nombre = Console.ReadLine();
+                sector = Principal.ObtenerSector(nombre);
+                Console.Write("Nuevo nombre del sector: ");
+                nombre = Console.ReadLine();
 
-            Console.Write("Nuevo nombre: ");
-            nuevoNombre = Console.ReadLine();
+                sector.Nombre = nombre;
 
-            Console.Write("Nueva edad: ");
-            int nuevaEdad = Convert.ToInt32(Console.ReadLine());
-
-            Ciudadano antiguo = Principal.obtenerUsuario(id);
-            antiguo.Nombre = nuevoNombre;
-            antiguo.Edad = nuevaEdad;
+                Console.WriteLine("Sector modificado exitosamente.");
+                break;
+            default:
+                Console.WriteLine("Error: Opcion no valida");
+                break;
         }
     }
 
     public void EliminarElemento(Ciudadano ciudadano) 
     {
-        int id;
-        string nuevoNombre;
-        if (ciudadano.Rango >= Rango.ALMIRANTE_DE_FLOTA)
+        Ciudadano? Usuario;
+        Campaña? campaña;
+        Sector? sector;
+        string? nombre;
+        int opcion = ObtenerTipoElemento(ciudadano), valor;
+        switch (opcion)
         {
-            Console.Write("\nSeleccione el tipo de elemento:");
-            Console.WriteLine("1- Usuario.");
-            Console.WriteLine("2- Campaña.");
-            Console.WriteLine("3- Sector.");
-            int seleccion = Convert.ToInt32(Console.ReadLine());
-            switch (seleccion)
-            {
-                case 1:
-                    Console.Write("ID del usuario: ");
-                    id = Convert.ToInt32(Console.ReadLine());
-                    Ciudadano antiguo = Principal.obtenerUsuario(id);
+            case 1:
+                Console.Write("ID del usuario: ");
+                valor = Convert.ToInt32(Console.ReadLine());
+                Usuario = Principal.ObtenerUsuario(valor);
 
-                    antiguo.sector.listaUsuarios.Remove(antiguo);
-                    Console.WriteLine("Usuario borrado.");
-                    break;
-                case 2:
-                    Console.Write("Codigo de la campaña: ");
-                    id = Convert.ToInt32(Console.ReadLine());
-                    Campaña campaña = Principal.ObtenerCampaña(id);
+                Usuario.sector.listaUsuarios.Remove(Usuario);
 
-                    campaña.Sector.listaCampañas.Remove(campaña);
-                    Console.WriteLine("Campaña eliminada.");
-                    break;
-                case 3:
-                    Console.Write("Nombre del sector: ");
-                    nuevoNombre = Console.ReadLine();
+                Console.WriteLine("Usuario borrado exitosamente.");
+                break;
+            case 2:
+                Console.Write("Codigo de la campaña: ");
+                valor = Convert.ToInt32(Console.ReadLine());
+                campaña = Principal.ObtenerCampaña(valor);
 
-                    listaSectores.Remove(Principal.ObtenerSector(nombre));
-                    Console.WriteLine("Sector eliminado.");
-                    break;
-                default:
-                    Console.WriteLine("Error: Opcion no valida");
-                    break;
-            }
-        }
-        else
-        {
-            Console.Write("ID del usuario: ");
-            id = Convert.ToInt32(Console.ReadLine());
-            Ciudadano antiguo = Principal.obtenerUsuario(id);
+                campaña.Sector.listaCampañas.Remove(campaña);
 
-            antiguo.sector.listaUsuarios.Remove(antiguo);
-            Console.WriteLine("Usuario borrado.");
+                Console.WriteLine("Campaña eliminada exitosamente.");
+                break;
+            case 3:
+                Console.Write("Nombre del sector: ");
+                nombre = Console.ReadLine();
+                sector = Principal.ObtenerSector(nombre);
+
+                listaSectores.Remove(sector);
+
+                Console.WriteLine("Sector eliminado exitosamente.");
+                break;
+            default:
+                Console.WriteLine("Error: Opcion no valida");
+                break;
         }
     }
     #endregion
@@ -256,6 +218,19 @@
         set { listaSectores = value; }
     }
     #endregion
+
+    private int ObtenerTipoElemento(Ciudadano ciudadano)
+    {
+        if (ciudadano.Rango >= Rango.ALMIRANTE_DE_FLOTA)
+        {
+            Console.WriteLine("\nSeleccione el tipo de elemento:");
+            Console.WriteLine("1- Usuario.");
+            Console.WriteLine("2- Campaña.");
+            Console.WriteLine("3- Sector.");
+            return Convert.ToInt32(Console.ReadLine());
+        }
+        return 1;
+    }
 
     public int CompareTo(Sector? other)
     {

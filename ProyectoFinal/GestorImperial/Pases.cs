@@ -60,31 +60,18 @@
                 valido = true;
                 Console.Write("Inserte el codigo de la mision: ");
                 codigo = Convert.ToInt32(Console.ReadLine());
-                Mision mision = Principal.ObtenerMision(codigo);
-                if (mision != null)
-                {
-                    mision.GestionarElemento(ciudadano);
-                }
-                else
-                {
-                    Console.WriteLine("Error: codigo " + codigo + " no valido");
-                }
+                Mision? mision = Principal.ObtenerMision(codigo);
+
+                mision.GestionarElemento(ciudadano);
             }
             else if (opcion == 3 && ciudadano.Rango >= Rango.VICE_ALMIRANTE)
             {
                 valido = true;
                 Console.Write("Inserte el codigo de la campaña: ");
                 codigo = Convert.ToInt32(Console.ReadLine());
-                Campaña campaña = Principal.ObtenerCampaña(codigo);
-                if (campaña != null)
-                {
-                    campaña.GestionarElemento(ciudadano);
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine("Error: codigo " + codigo + " no valido");
-                }
+                Campaña? campaña = Principal.ObtenerCampaña(codigo);
+                
+                campaña.GestionarElemento(ciudadano);
             }
             else
             {

@@ -2,9 +2,9 @@
 {
     static void Main(string[] args)
     {
-        generarSectores();
+        GenerarSectores();
         Pases pases = new Pases();
-        Ciudadano ciudadano;
+        Ciudadano? ciudadano = null;
         Rango paseAsignado;
         bool salir = false, valido = false;
         int id, opcion;
@@ -14,7 +14,7 @@
         {
             Console.Write("Ingrese un numero de identificacion: ");
             id = Convert.ToInt32(Console.ReadLine());
-            ciudadano = obtenerUsuario(id);
+            ciudadano = ObtenerUsuario(id);
 
             if (ciudadano != null && ciudadano.Rango >= Rango.TENIENTE)
             {
@@ -66,7 +66,7 @@
         while (!salir);
     }
 
-    public static void generarSectores()
+    public static void GenerarSectores()
     {
         Random rm = new Random();
         String caracteres = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
@@ -84,7 +84,7 @@
 
             for (int x = 0; x < 8; x++)
             {
-                ciudadano = generarCiudadanos(sector);
+                ciudadano = GenerarCiudadanos(sector);
                 sector.ListaUsuarios.Add(ciudadano);
             }
 
@@ -92,7 +92,7 @@
         }
     }
 
-    public static Ciudadano generarCiudadanos(Sector sector)
+    public static Ciudadano GenerarCiudadanos(Sector sector)
     {
         Random rm = new Random();
         String caracteres = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
@@ -111,7 +111,7 @@
         return ciudadano;
     }
 
-    public static Ciudadano? obtenerUsuario(int id)
+    public static Ciudadano? ObtenerUsuario(int id)
     {
         foreach (Sector sector in Sector.listaSectores)
         {
