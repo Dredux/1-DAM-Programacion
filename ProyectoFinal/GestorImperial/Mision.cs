@@ -2,7 +2,7 @@
 {
     public int codigo;
     public Estado estado;
-    public Ciudadano? responsable;
+    public Ciudadano responsable;
 
     public Mision(Estado estado, Ciudadano responsable)
     {
@@ -33,7 +33,7 @@
                 EliminarElemento(ciudadano);
                 break;
             case 4:
-                ToString();
+                Console.WriteLine(ToString());
                 break;
             default:
                 Console.WriteLine("Error: Opcion no valida");
@@ -45,7 +45,7 @@
     {
         Console.Write("Inserta el ID del nuevo responsable: ");
         int id = Convert.ToInt32(Console.ReadLine());
-        Ciudadano responsable = Principal.obtenerUsuario(id);
+        Ciudadano responsable = Principal.ObtenerUsuario(id);
         Responsable = responsable;
         responsable.Supervisor = true;
     }
@@ -86,7 +86,15 @@
 
     public void EliminarElemento(Ciudadano ciudadano)
     {
-        responsable = null;
+        // CAMBIO COHERENCIA:
+        // Se desmarca supervisor del responsable real, no del operador actual.
+        // (Antes se desmarcaba el supervisor del ciudadano pasado como argumento)
+        if (Responsable != null)
+        {
+            Responsable.Supervisor = false;
+        }
+
+        Responsable = null;
         Console.WriteLine("Responsable eliminado.");
     }
     #endregion
@@ -119,8 +127,8 @@
 
     public override string ToString()
     {
-        return "\nCodigo: " + Codigo 
-            + "\nResponsable: " + Responsable.Nombre 
-            + "\nSector: " + Estado;
+        return "\nCodigo: " + Codigo
+            + "\nResponsable: " + Responsable.Nombre
+            + "\nEstado: " + Estado;
     }
 }

@@ -1,4 +1,6 @@
-﻿class Principal
+﻿// Clase principal: Controla el flujo principal de la aplicación
+// y proporciona métodos para obtener datos dentro de la estructura del sistema.
+class Principal
 {
     static void Main(string[] args)
     {
@@ -10,6 +12,7 @@
         int id, opcion;
 
         Console.WriteLine("* SISTEMA GESTOR IMPERIAL *");
+        // Bucle para solicitar el ID de usuario hasta que se ingrese uno válido con el rango requerido.
         do
         {
             Console.Write("Ingrese un numero de identificacion: ");
@@ -28,6 +31,7 @@
         }
         while (!valido);
 
+        // Bucle para mostrar el menú de opciones hasta que el usuario decida salir.
         do
         {
             Console.WriteLine("\nSeleccione una opcion:");
@@ -66,6 +70,8 @@
         while (!salir);
     }
 
+    #region Generadores
+    // Genera sectores con nombres aleatorios y asigna ciudadanos a cada sector.
     public static void GenerarSectores()
     {
         Random rm = new Random();
@@ -80,18 +86,19 @@
             {
                 nombre += listaCaracteres[rm.Next(caracteres.Length)];
             }
+
             Sector sector = new Sector(nombre);
+            Sector.listaSectores.Add(sector);
 
             for (int x = 0; x < 8; x++)
             {
                 ciudadano = GenerarCiudadanos(sector);
                 sector.ListaUsuarios.Add(ciudadano);
             }
-
-            Sector.listaSectores.Add(sector);
         }
     }
 
+    // Genera ciudadanos con datos aleatorios, asignándolos a un sector específico.
     public static Ciudadano GenerarCiudadanos(Sector sector)
     {
         Random rm = new Random();
@@ -106,11 +113,71 @@
         }
 
         Ciudadano ciudadano = new Ciudadano(nombre.ToLower(), edad, sector);
-        ciudadano.ID = sector.ListaUsuarios.Count + 1;
+        ciudadano.ID = ActualizarIDGlobalCiudadano();
+
         ciudadano.Rango = (Rango)numRango;
         return ciudadano;
     }
+    #endregion
 
+    #region Actualizar ID
+    // Métodos para obtener el siguiente ID, evitando colisiones al buscar por ID.
+    public static int ActualizarIDGlobalCiudadano()
+    {
+        // Recorre todos los sectores y ciudadanos para encontrar el ID máximo y retorna el siguiente.
+        int max = 0;
+        foreach (Sector sector in Sector.listaSectores)
+        {
+            foreach (Ciudadano ciudadano in sector.ListaUsuarios)
+            {
+                if (ciudadano.ID > max)
+                {
+                    max = ciudadano.ID;
+                }
+            }
+        }
+        // Retorna el siguiente ID disponible.
+        return max + 1;
+    }
+
+    public static int ActualizarIDGlobalCampaña()
+    {
+        int max = 0;
+        foreach (Sector sector in Sector.listaSectores)
+        {
+            foreach (Campaña campaña in sector.listaCampañas)
+            {
+                if (campaña.Codigo > max)
+                {
+                    max = campaña.Codigo;
+                }
+            }
+        }
+        return max + 1;
+    }
+
+    public static int ActualizarIDGlobalMision()
+    {
+        int max = 0;
+        foreach (Sector sector in Sector.listaSectores)
+        {
+            foreach (Campaña campaña in sector.listaCampañas)
+            {
+                foreach (Mision mision in campaña.ListaMisiones)
+                {
+                    if (mision.Codigo > max)
+                    {
+                        max = mision.Codigo;
+                    }
+                }
+            }
+        }
+        return max + 1;
+    }
+    #endregion
+
+    #region Obtener elemento
+    // Métodos para obtener elementos, recorriendo la estructura completa de la aplicación.
     public static Ciudadano? ObtenerUsuario(int id)
     {
         foreach (Sector sector in Sector.listaSectores)
@@ -170,4 +237,5 @@
         }
         return null;
     }
+    #endregion
 }

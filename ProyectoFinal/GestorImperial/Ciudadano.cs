@@ -21,24 +21,131 @@
     #region Gestor
     public void GestionarElemento(Ciudadano ciudadano)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("\n* Administrador de Ciudadano *");
+        Console.WriteLine("Seleccione una opcion:");
+        Console.WriteLine("1- Añadir elemento.");
+        Console.WriteLine("2- Modificar elemento.");
+        Console.WriteLine("3- Eliminar elemento.");
+        Console.WriteLine("4- Mostrar datos.");
+        int opcion = Convert.ToInt32(Console.ReadLine());
+
+        switch (opcion)
+        {
+            case 1:
+                AgregarElemento(ciudadano);
+                break;
+            case 2:
+                ModificarElemento(ciudadano);
+                break;
+            case 3:
+                EliminarElemento(ciudadano);
+                break;
+            case 4:
+                Console.WriteLine(ToString());
+                break;
+            default:
+                Console.WriteLine("Error: Opcion no valida");
+                break;
+        }
     }
 
     public void AgregarElemento(Ciudadano ciudadano)
     {
-        throw new NotImplementedException();
+        Console.Write("Codigo de la mision a agregar: ");
+        int codigo = Convert.ToInt32(Console.ReadLine());
+        Mision? mision = Principal.ObtenerMision(codigo);
+
+        if (mision != null)
+        {
+            expediente.Add(mision);
+            Console.WriteLine("Mision agregada al expediente.");
+        }
+        else
+        {
+            Console.WriteLine("Error: Mision no encontrada.");
+        }
     }
 
     public void ModificarElemento(Ciudadano ciudadano)
     {
-        throw new NotImplementedException();
+        Console.Write("Nuevo nombre: ");
+        Nombre = Console.ReadLine();
+        Console.Write("Nueva edad: ");
+        Edad = Convert.ToInt32(Console.ReadLine());
+        Console.Write("Seleccione el nuevo rango (numero): ");
+        int nuevoRango = Convert.ToInt32(Console.ReadLine());
+
+        if (nuevoRango >= 0 && nuevoRango <= 9)
+        {
+            Rango = (Rango)nuevoRango;
+        }
+        else
+        {
+            Console.WriteLine("Error: Rango no valido.");
+            Rango = Rango.CIUDADANO;
+        }
+
+        Console.Write("Nombre del sector: ");
+        string nombreSector = Console.ReadLine();
+        Sector? nuevoSector = Principal.ObtenerSector(nombreSector);
+
+        if (nuevoSector != null)
+        {
+            sector.listaUsuarios.Remove(this);
+            Sector = nuevoSector;
+            Sector.listaUsuarios.Add(this);
+        }
+        else
+        {
+            Console.WriteLine("Error: Sector no encontrado.");
+            sector = ciudadano.Sector;
+        }
     }
 
     public void EliminarElemento(Ciudadano ciudadano)
     {
-        throw new NotImplementedException();
-    }
+        Console.WriteLine("\nSeleccione el tipo de elemento:");
+        Console.WriteLine("1- Mision del expediente.");
+        Console.WriteLine("2- Vaciar expediente.");
+        int opcion = Convert.ToInt32(Console.ReadLine());
 
+        switch (opcion)
+        {
+            case 1:
+                Console.Write("Codigo de la mision: ");
+                int codigo = Convert.ToInt32(Console.ReadLine());
+
+                Mision? misionEliminar = null;
+                foreach (Mision mision in expediente)
+                {
+                    if (mision.Codigo == codigo)
+                    {
+                        misionEliminar = mision;
+                        break;
+                    }
+                }
+
+                if (misionEliminar != null)
+                {
+                    expediente.Remove(misionEliminar);
+                    Console.WriteLine("Mision eliminada del expediente.");
+                }
+                else
+                {
+                    Console.WriteLine("Error: Mision no encontrada en el expediente.");
+                }
+                break;
+
+            case 2:
+                expediente.Clear();
+                Console.WriteLine("Expediente vaciado exitosamente.");
+                break;
+
+            default:
+                Console.WriteLine("Error: Opcion no valida");
+                break;
+        }
+    }
     #endregion
 
     #region Getters y Setters

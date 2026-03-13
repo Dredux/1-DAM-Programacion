@@ -47,7 +47,7 @@
         Ciudadano Usuario;
         Campaña campaña;
         Sector sector;
-        string? nombre;
+        string nombre;
         int opcion = ObtenerTipoElemento(ciudadano), valor;
         switch (opcion)
         {
@@ -57,12 +57,13 @@
                 Console.Write("Edad: ");
                 valor = Convert.ToInt32(Console.ReadLine());
 
-                Usuario = new Ciudadano(nombre, valor, this);
-                Usuario.ID = ListaUsuarios.Count + 1;
-                listaUsuarios.Add(Usuario);
+                Usuario = new Ciudadano(nombre, valor, ciudadano.sector);
+                Usuario.ID = Principal.ActualizarIDGlobalCiudadano();
 
+                listaUsuarios.Add(Usuario);
                 Console.WriteLine("Usuario agregado exitosamente.");
                 break;
+
             case 2:
                 Console.Write("ID del nuevo supervisor: ");
                 valor = Convert.ToInt32(Console.ReadLine());
@@ -73,19 +74,20 @@
 
                 Usuario = Principal.ObtenerUsuario(valor);
                 campaña = new Campaña(Usuario, this, fechaInicio, fechaFin);
+                campaña.Codigo = Principal.ActualizarIDGlobalCampaña();
+                listaCampañas.Add(campaña);
 
                 Console.WriteLine("Campaña agregada exitosamente.");
-
                 break;
+
             case 3:
                 Console.Write("Nombre del nuevo sector: ");
                 nombre = Console.ReadLine();
-
                 sector = new Sector(nombre);
                 listaSectores.Add(sector);
-
                 Console.WriteLine("Sector agregado exitosamente.");
                 break;
+
             default:
                 Console.WriteLine("Error: Opcion no valida");
                 break;
@@ -94,10 +96,10 @@
 
     public void ModificarElemento(Ciudadano ciudadano)
     {
-        Ciudadano? Usuario;
-        Campaña? campaña;
-        Sector? sector;
-        string? nombre;
+        Ciudadano Usuario;
+        Campaña campaña;
+        Sector sector;
+        string nombre;
         int opcion = ObtenerTipoElemento(ciudadano), valor;
         switch (opcion)
         {
@@ -105,16 +107,11 @@
                 Console.Write("ID del usuario: ");
                 valor = Convert.ToInt32(Console.ReadLine());
                 Usuario = Principal.ObtenerUsuario(valor);
-                Console.Write("Nuevo nombre: ");
-                nombre = Console.ReadLine();
-                Console.Write("Nueva edad: ");
-                valor = Convert.ToInt32(Console.ReadLine());
-
-                Usuario.Nombre = nombre;
-                Usuario.Edad = valor;
+                Usuario.GestionarElemento(ciudadano);
 
                 Console.WriteLine("Usuario modificado exitosamente.");
                 break;
+
             case 2:
                 Console.Write("Codigo de la campaña: ");
                 valor = Convert.ToInt32(Console.ReadLine());
@@ -133,6 +130,7 @@
 
                 Console.WriteLine("Campaña modificada exitosamente.");
                 break;
+
             case 3:
                 Console.Write("Nombre del sector: ");
                 nombre = Console.ReadLine();
@@ -140,22 +138,25 @@
                 Console.Write("Nuevo nombre del sector: ");
                 nombre = Console.ReadLine();
 
+                listaSectores.Remove(sector);
                 sector.Nombre = nombre;
+                listaSectores.Add(sector);
 
                 Console.WriteLine("Sector modificado exitosamente.");
                 break;
+
             default:
                 Console.WriteLine("Error: Opcion no valida");
                 break;
         }
     }
 
-    public void EliminarElemento(Ciudadano ciudadano) 
+    public void EliminarElemento(Ciudadano ciudadano)
     {
-        Ciudadano? Usuario;
-        Campaña? campaña;
-        Sector? sector;
-        string? nombre;
+        Ciudadano Usuario;
+        Campaña campaña;
+        Sector sector;
+        string nombre;
         int opcion = ObtenerTipoElemento(ciudadano), valor;
         switch (opcion)
         {
@@ -168,6 +169,7 @@
 
                 Console.WriteLine("Usuario borrado exitosamente.");
                 break;
+
             case 2:
                 Console.Write("Codigo de la campaña: ");
                 valor = Convert.ToInt32(Console.ReadLine());
@@ -177,6 +179,7 @@
 
                 Console.WriteLine("Campaña eliminada exitosamente.");
                 break;
+
             case 3:
                 Console.Write("Nombre del sector: ");
                 nombre = Console.ReadLine();
@@ -186,6 +189,7 @@
 
                 Console.WriteLine("Sector eliminado exitosamente.");
                 break;
+
             default:
                 Console.WriteLine("Error: Opcion no valida");
                 break;
@@ -238,16 +242,10 @@
         return Nombre.CompareTo(other.Nombre);
     }
 
-    public override string ToString() 
+    public override string ToString()
     {
-        string pantalla = "\nDatos del sector " + Nombre + ":"
+        return "\nDatos del sector " + Nombre + ":"
             + "\nCiudadanos registrados: " + ListaUsuarios.Count
             + "\nCampañas activas: " + ListaCampañas.Count;
-        foreach (Sector sector in listaSectores)
-        {
-            pantalla += sector.ToString();
-        }
-
-        return pantalla;
     }
 }

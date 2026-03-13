@@ -1,4 +1,6 @@
-﻿class Pases
+﻿// Clase Pases: Gestiona los diferentes niveles de acceso para los ciudadanos
+// permitiendo la interacción con el sistema según su rango y responsabilidades.
+class Pases
 {
     // Registro
     public void PaseV1(Ciudadano ciudadano)
@@ -44,24 +46,25 @@
         GestionarOpcion(ciudadano, opcion);
     }
 
+    // Método auxiliar para gestionar las opciones de acceso según el rango del ciudadano.
     public void GestionarOpcion(Ciudadano ciudadano, int opcion)
     {
         bool valido = false;
         int codigo;
+
         do
         {
-            if (opcion == 1 || opcion == 4)
+            if (opcion == 1)
             {
                 valido = true;
-                ciudadano.sector.GestionarElemento(ciudadano);
+                ciudadano.Sector.GestionarElemento(ciudadano);
             }
             else if (opcion == 2 && ciudadano.Rango >= Rango.COMANDANTE)
             {
                 valido = true;
                 Console.Write("Inserte el codigo de la mision: ");
                 codigo = Convert.ToInt32(Console.ReadLine());
-                Mision? mision = Principal.ObtenerMision(codigo);
-
+                Mision mision = Principal.ObtenerMision(codigo);
                 mision.GestionarElemento(ciudadano);
             }
             else if (opcion == 3 && ciudadano.Rango >= Rango.VICE_ALMIRANTE)
@@ -69,13 +72,21 @@
                 valido = true;
                 Console.Write("Inserte el codigo de la campaña: ");
                 codigo = Convert.ToInt32(Console.ReadLine());
-                Campaña? campaña = Principal.ObtenerCampaña(codigo);
-                
+                Campaña campaña = Principal.ObtenerCampaña(codigo);
                 campaña.GestionarElemento(ciudadano);
+            }
+            else if (opcion == 4 && ciudadano.Rango >= Rango.ALMIRANTE_DE_FLOTA)
+            {
+                // CAMBIO COHERENCIA:
+                // Opción 4 se valida explícitamente por rango alto.
+                // (Antes se permitía a cualquier rango acceder al sector, lo cual no era coherente con la jerarquía de acceso).
+                valido = true;
+                ciudadano.Sector.GestionarElemento(ciudadano);
             }
             else
             {
                 Console.WriteLine("Error: Opcion no valida\n");
+                opcion = Convert.ToInt32(Console.ReadLine());
             }
         }
         while (!valido);
