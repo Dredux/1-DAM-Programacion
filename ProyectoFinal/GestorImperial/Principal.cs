@@ -62,9 +62,13 @@ class Principal
                         break;
                 }
             }
-            else
+            else if (opcion == 2)
             {
                 salir = true;
+            }
+            else
+            {
+                Console.WriteLine("Error: Opcion no valida");
             }
         }
         while (!salir);
@@ -79,7 +83,7 @@ class Principal
         Ciudadano ciudadano;
         char[] listaCaracteres = caracteres.ToCharArray();
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < Sector.listaSectores.Length; i++)
         {
             String nombre = "";
             for (int j = 0; j < 8; j++)
@@ -88,7 +92,8 @@ class Principal
             }
 
             Sector sector = new Sector(nombre);
-            Sector.listaSectores.Add(sector);
+            Sector.listaSectores[i] = sector;
+            Sector.contadorSectores++;
 
             for (int x = 0; x < 8; x++)
             {
@@ -126,8 +131,10 @@ class Principal
     {
         // Recorre todos los sectores y ciudadanos para encontrar el ID máximo y retorna el siguiente.
         int max = 0;
-        foreach (Sector sector in Sector.listaSectores)
+        foreach (Sector? sector in Sector.listaSectores)
         {
+            if (sector == null) { continue; }
+
             foreach (Ciudadano ciudadano in sector.ListaUsuarios)
             {
                 if (ciudadano.ID > max)
@@ -143,8 +150,10 @@ class Principal
     public static int ActualizarIDGlobalCampaña()
     {
         int max = 0;
-        foreach (Sector sector in Sector.listaSectores)
+        foreach (Sector? sector in Sector.listaSectores)
         {
+            if (sector == null) { continue; }
+
             foreach (Campaña campaña in sector.listaCampañas)
             {
                 if (campaña.Codigo > max)
@@ -159,8 +168,10 @@ class Principal
     public static int ActualizarIDGlobalMision()
     {
         int max = 0;
-        foreach (Sector sector in Sector.listaSectores)
+        foreach (Sector? sector in Sector.listaSectores)
         {
+            if (sector == null) { continue; }
+
             foreach (Campaña campaña in sector.listaCampañas)
             {
                 foreach (Mision mision in campaña.ListaMisiones)
@@ -180,8 +191,10 @@ class Principal
     // Métodos para obtener elementos, recorriendo la estructura completa de la aplicación.
     public static Ciudadano? ObtenerUsuario(int id)
     {
-        foreach (Sector sector in Sector.listaSectores)
+        foreach (Sector? sector in Sector.listaSectores)
         {
+            if (sector == null) { continue; }
+
             foreach (Ciudadano ciudadano in sector.ListaUsuarios)
             {
                 if (ciudadano.ID == id)
@@ -195,8 +208,10 @@ class Principal
 
     public static Mision? ObtenerMision(int codigo)
     {
-        foreach (Sector sector in Sector.listaSectores)
+        foreach (Sector? sector in Sector.listaSectores)
         {
+            if (sector == null) { continue; }
+
             foreach (Campaña campaña in sector.listaCampañas)
             {
                 foreach (Mision mision in campaña.ListaMisiones)
@@ -213,8 +228,10 @@ class Principal
 
     public static Campaña? ObtenerCampaña(int codigo)
     {
-        foreach (Sector sector in Sector.listaSectores)
+        foreach (Sector? sector in Sector.listaSectores)
         {
+            if (sector == null) { continue; }
+
             foreach (Campaña campaña in sector.listaCampañas)
             {
                 if (campaña.Codigo == codigo)
@@ -228,8 +245,10 @@ class Principal
 
     public static Sector? ObtenerSector(string nombre)
     {
-        foreach (Sector sector in Sector.listaSectores)
+        foreach (Sector? sector in Sector.listaSectores)
         {
+            if (sector == null) { continue; }
+
             if (sector.Nombre == nombre)
             {
                 return sector;

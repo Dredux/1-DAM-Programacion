@@ -1,4 +1,4 @@
-﻿class Ciudadano : IComparable<Ciudadano>, IGestor
+﻿class Ciudadano : EntidadGestable, IComparable<Ciudadano>
 {
     public int id;
     public string nombre;
@@ -19,37 +19,14 @@
     }
 
     #region Gestor
-    public void GestionarElemento(Ciudadano ciudadano)
+    public override void GestionarElemento(Ciudadano ciudadano)
     {
-        Console.WriteLine("\n* Administrador de Ciudadano *");
-        Console.WriteLine("Seleccione una opcion:");
-        Console.WriteLine("1- Añadir elemento.");
-        Console.WriteLine("2- Modificar elemento.");
-        Console.WriteLine("3- Eliminar elemento.");
-        Console.WriteLine("4- Mostrar datos.");
+        MostrarMenuGestion("Ciudadano");
         int opcion = Convert.ToInt32(Console.ReadLine());
-
-        switch (opcion)
-        {
-            case 1:
-                AgregarElemento(ciudadano);
-                break;
-            case 2:
-                ModificarElemento(ciudadano);
-                break;
-            case 3:
-                EliminarElemento(ciudadano);
-                break;
-            case 4:
-                Console.WriteLine(ToString());
-                break;
-            default:
-                Console.WriteLine("Error: Opcion no valida");
-                break;
-        }
+        EjecutarAccion(opcion, ciudadano);
     }
 
-    public void AgregarElemento(Ciudadano ciudadano)
+    public override void AgregarElemento(Ciudadano ciudadano)
     {
         Console.Write("Codigo de la mision a agregar: ");
         int codigo = Convert.ToInt32(Console.ReadLine());
@@ -66,7 +43,7 @@
         }
     }
 
-    public void ModificarElemento(Ciudadano ciudadano)
+    public override void ModificarElemento(Ciudadano ciudadano)
     {
         Console.Write("Nuevo nombre: ");
         Nombre = Console.ReadLine();
@@ -102,7 +79,7 @@
         }
     }
 
-    public void EliminarElemento(Ciudadano ciudadano)
+    public override void EliminarElemento(Ciudadano ciudadano)
     {
         Console.WriteLine("\nSeleccione el tipo de elemento:");
         Console.WriteLine("1- Mision del expediente.");

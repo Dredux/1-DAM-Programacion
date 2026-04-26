@@ -61,31 +61,48 @@ class Pases
             }
             else if (opcion == 2 && ciudadano.Rango >= Rango.COMANDANTE)
             {
-                valido = true;
                 Console.Write("Inserte el codigo de la mision: ");
                 codigo = Convert.ToInt32(Console.ReadLine());
-                Mision mision = Principal.ObtenerMision(codigo);
-                mision.GestionarElemento(ciudadano);
+                Mision? mision = Principal.ObtenerMision(codigo);
+
+                if (mision != null)
+                {
+                    valido = true;
+                    mision.GestionarElemento(ciudadano);
+                }
+                else
+                {
+                    Console.WriteLine("Error: Mision no encontrada");
+                }
             }
             else if (opcion == 3 && ciudadano.Rango >= Rango.VICE_ALMIRANTE)
             {
-                valido = true;
                 Console.Write("Inserte el codigo de la campaña: ");
                 codigo = Convert.ToInt32(Console.ReadLine());
-                Campaña campaña = Principal.ObtenerCampaña(codigo);
-                campaña.GestionarElemento(ciudadano);
+                Campaña? campaña = Principal.ObtenerCampaña(codigo);
+
+                if (campaña != null)
+                {
+                    valido = true;
+                    campaña.GestionarElemento(ciudadano);
+                }
+                else
+                {
+                    Console.WriteLine("Error: Campaña no encontrada");
+                }
             }
             else if (opcion == 4 && ciudadano.Rango >= Rango.ALMIRANTE_DE_FLOTA)
             {
-                // CAMBIO COHERENCIA:
-                // Opción 4 se valida explícitamente por rango alto.
-                // (Antes se permitía a cualquier rango acceder al sector, lo cual no era coherente con la jerarquía de acceso).
                 valido = true;
                 ciudadano.Sector.GestionarElemento(ciudadano);
             }
             else
             {
                 Console.WriteLine("Error: Opcion no valida\n");
+            }
+
+            if (!valido)
+            {
                 opcion = Convert.ToInt32(Console.ReadLine());
             }
         }

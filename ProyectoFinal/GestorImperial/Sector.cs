@@ -1,9 +1,10 @@
-﻿class Sector : IComparable<Sector>, IGestor
+﻿class Sector : EntidadGestable, IComparable<Sector>
 {
     public string nombre;
     public SortedSet<Ciudadano> listaUsuarios;
     public SortedSet<Campaña> listaCampañas;
-    public static SortedSet<Sector> listaSectores = new SortedSet<Sector>();
+    public static Sector[] listaSectores = new Sector[10];
+    public static int contadorSectores = 0;
 
     public Sector(string nombre)
     {
@@ -13,36 +14,14 @@
     }
 
     #region Gestor
-    public void GestionarElemento(Ciudadano ciudadano)
+    public override void GestionarElemento(Ciudadano ciudadano)
     {
-        Console.WriteLine("\n* Administrador de Sector *");
-        Console.WriteLine("Seleccione una opcion:");
-        Console.WriteLine("1- Añadir elemento.");
-        Console.WriteLine("2- Modificar elementos.");
-        Console.WriteLine("3- Eliminar elemento.");
-        Console.WriteLine("4- Mostrar datos.");
+        MostrarMenuGestion("Sector");
         int opcion = Convert.ToInt32(Console.ReadLine());
-        switch (opcion)
-        {
-            case 1:
-                AgregarElemento(ciudadano);
-                break;
-            case 2:
-                ModificarElemento(ciudadano);
-                break;
-            case 3:
-                EliminarElemento(ciudadano);
-                break;
-            case 4:
-                Console.WriteLine(ToString());
-                break;
-            default:
-                Console.WriteLine("Error: Opcion no valida");
-                break;
-        }
+        EjecutarAccion(opcion, ciudadano);
     }
 
-    public void AgregarElemento(Ciudadano ciudadano)
+    public override void AgregarElemento(Ciudadano ciudadano)
     {
         Ciudadano Usuario;
         Campaña campaña;
@@ -73,19 +52,35 @@
                 DateTime fechaFin = Convert.ToDateTime(Console.ReadLine());
 
                 Usuario = Principal.ObtenerUsuario(valor);
-                campaña = new Campaña(Usuario, this, fechaInicio, fechaFin);
-                campaña.Codigo = Principal.ActualizarIDGlobalCampaña();
-                listaCampañas.Add(campaña);
+                if (Usuario != null)
+                {
+                    campaña = new Campaña(Usuario, this, fechaInicio, fechaFin);
+                    campaña.Codigo = Principal.ActualizarIDGlobalCampaña();
+                    listaCampañas.Add(campaña);
 
-                Console.WriteLine("Campaña agregada exitosamente.");
+                    Console.WriteLine("Campaña agregada exitosamente.");
+                }
+                else
+                {
+                    Console.WriteLine("Error: Usuario supervisor no encontrado.");
+                }
                 break;
 
             case 3:
                 Console.Write("Nombre del nuevo sector: ");
                 nombre = Console.ReadLine();
                 sector = new Sector(nombre);
-                listaSectores.Add(sector);
-                Console.WriteLine("Sector agregado exitosamente.");
+
+                if (contadorSectores < listaSectores.Length)
+                {
+                    listaSectores[contadorSectores] = sector;
+                    contadorSectores++;
+                    Console.WriteLine("Sector agregado exitosamente.");
+                }
+                else
+                {
+                    Console.WriteLine("Error: Array de sectores lleno (máximo 10).");
+                }
                 break;
 
             default:
@@ -94,7 +89,7 @@
         }
     }
 
-    public void ModificarElemento(Ciudadano ciudadano)
+    public override void ModificarElemento(Ciudadano ciudadano)
     {
         Ciudadano Usuario;
         Campaña campaña;
@@ -107,42 +102,69 @@
                 Console.Write("ID del usuario: ");
                 valor = Convert.ToInt32(Console.ReadLine());
                 Usuario = Principal.ObtenerUsuario(valor);
-                Usuario.GestionarElemento(ciudadano);
-
-                Console.WriteLine("Usuario modificado exitosamente.");
+                
+                if (Usuario != null)
+                {
+                    Usuario.GestionarElemento(ciudadano);
+                    Console.WriteLine("Usuario modificado exitosamente.");
+                }
+                else
+                {
+                    Console.WriteLine("Error: Usuario no encontrado.");
+                }
                 break;
 
             case 2:
                 Console.Write("Codigo de la campaña: ");
                 valor = Convert.ToInt32(Console.ReadLine());
                 campaña = Principal.ObtenerCampaña(valor);
-                Console.Write("ID del nuevo supervisor: ");
-                valor = Convert.ToInt32(Console.ReadLine());
-                Usuario = Principal.ObtenerUsuario(valor);
-                Console.Write("Fecha de inicio de la campaña: ");
-                DateTime fechaInicio = Convert.ToDateTime(Console.ReadLine());
-                Console.Write("Fecha fin de la campaña: ");
-                DateTime fechaFin = Convert.ToDateTime(Console.ReadLine());
+                
+                if (campaña != null)
+                {
+                    Console.Write("ID del nuevo supervisor: ");
+                    valor = Convert.ToInt32(Console.ReadLine());
+                    Usuario = Principal.ObtenerUsuario(valor);
+                    
+                    if (Usuario != null)
+                    {
+                        Console.Write("Fecha de inicio de la campaña: ");
+                        DateTime fechaInicio = Convert.ToDateTime(Console.ReadLine());
+                        Console.Write("Fecha fin de la campaña: ");
+                        DateTime fechaFin = Convert.ToDateTime(Console.ReadLine());
 
-                campaña.Supervisor = Usuario;
-                campaña.FechaInicio = fechaInicio;
-                campaña.FechaFin = fechaFin;
+                        campaña.Supervisor = Usuario;
+                        campaña.FechaInicio = fechaInicio;
+                        campaña.FechaFin = fechaFin;
 
-                Console.WriteLine("Campaña modificada exitosamente.");
+                        Console.WriteLine("Campaña modificada exitosamente.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error: Usuario supervisor no encontrado.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Error: Campaña no encontrada.");
+                }
                 break;
 
             case 3:
-                Console.Write("Nombre del sector: ");
+                Console.Write("Nombre del sector a modificar: ");
                 nombre = Console.ReadLine();
                 sector = Principal.ObtenerSector(nombre);
-                Console.Write("Nuevo nombre del sector: ");
-                nombre = Console.ReadLine();
-
-                listaSectores.Remove(sector);
-                sector.Nombre = nombre;
-                listaSectores.Add(sector);
-
-                Console.WriteLine("Sector modificado exitosamente.");
+                
+                if (sector != null)
+                {
+                    Console.Write("Nuevo nombre del sector: ");
+                    string nuevoNombre = Console.ReadLine();
+                    sector.Nombre = nuevoNombre;
+                    Console.WriteLine("Sector modificado exitosamente.");
+                }
+                else
+                {
+                    Console.WriteLine("Error: Sector no encontrado.");
+                }
                 break;
 
             default:
@@ -151,7 +173,7 @@
         }
     }
 
-    public void EliminarElemento(Ciudadano ciudadano)
+    public override void EliminarElemento(Ciudadano ciudadano)
     {
         Ciudadano Usuario;
         Campaña campaña;
@@ -165,9 +187,15 @@
                 valor = Convert.ToInt32(Console.ReadLine());
                 Usuario = Principal.ObtenerUsuario(valor);
 
-                Usuario.sector.listaUsuarios.Remove(Usuario);
-
-                Console.WriteLine("Usuario borrado exitosamente.");
+                if (Usuario != null)
+                {
+                    Usuario.sector.listaUsuarios.Remove(Usuario);
+                    Console.WriteLine("Usuario borrado exitosamente.");
+                }
+                else
+                {
+                    Console.WriteLine("Error: Usuario no encontrado.");
+                }
                 break;
 
             case 2:
@@ -175,9 +203,15 @@
                 valor = Convert.ToInt32(Console.ReadLine());
                 campaña = Principal.ObtenerCampaña(valor);
 
-                campaña.Sector.listaCampañas.Remove(campaña);
-
-                Console.WriteLine("Campaña eliminada exitosamente.");
+                if (campaña != null)
+                {
+                    campaña.Sector.listaCampañas.Remove(campaña);
+                    Console.WriteLine("Campaña eliminada exitosamente.");
+                }
+                else
+                {
+                    Console.WriteLine("Error: Campaña no encontrada.");
+                }
                 break;
 
             case 3:
@@ -185,9 +219,25 @@
                 nombre = Console.ReadLine();
                 sector = Principal.ObtenerSector(nombre);
 
-                listaSectores.Remove(sector);
+                if (sector != null)
+                {
+                    for (int i = 0; i < contadorSectores; i++)
+                    {
+                        if (listaSectores[i] == sector)
+                        {
+                            for (int j = i; j < contadorSectores - 1; j++)
+                            {
+                                listaSectores[j] = listaSectores[j + 1];
+                            }
+                            listaSectores[contadorSectores - 1] = null;
+                            contadorSectores--;
+                            Console.WriteLine("Sector eliminado exitosamente.");
+                            return;
+                        }
+                    }
+                }
 
-                Console.WriteLine("Sector eliminado exitosamente.");
+                Console.WriteLine("Error: Sector no encontrado.");
                 break;
 
             default:
@@ -216,10 +266,9 @@
         set { listaCampañas = value; }
     }
 
-    public SortedSet<Sector> ListaSectores
+    public Sector[] ListaSectores
     {
         get { return listaSectores; }
-        set { listaSectores = value; }
     }
     #endregion
 

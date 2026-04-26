@@ -1,4 +1,4 @@
-﻿class Campaña : IComparable<Campaña>, IGestor
+﻿class Campaña : EntidadGestable, IComparable<Campaña>
 {
     #region Propiedades
     public int codigo;
@@ -30,36 +30,14 @@
     }
 
     #region Gestor
-    public void GestionarElemento(Ciudadano ciudadano)
+    public override void GestionarElemento(Ciudadano ciudadano)
     {
-        Console.WriteLine("\n* Administrador de Campaña *");
-        Console.WriteLine("Seleccione una opcion:");
-        Console.WriteLine("1- Añadir elemento.");
-        Console.WriteLine("2- Modificar elementos.");
-        Console.WriteLine("3- Eliminar elemento.");
-        Console.WriteLine("4- Mostrar datos.");
+        MostrarMenuGestion("Campaña");
         int opcion = Convert.ToInt32(Console.ReadLine());
-        switch (opcion)
-        {
-            case 1:
-                AgregarElemento(ciudadano);
-                break;
-            case 2:
-                ModificarElemento(ciudadano);
-                break;
-            case 3:
-                EliminarElemento(ciudadano);
-                break;
-            case 4:
-                Console.WriteLine(ToString());
-                break;
-            default:
-                Console.WriteLine("Error: Opcion no valida");
-                break;
-        }
+        EjecutarAccion(opcion, ciudadano);
     }
 
-    public void AgregarElemento(Ciudadano ciudadano)
+    public override void AgregarElemento(Ciudadano ciudadano)
     {
         Ciudadano miembro;
         Mision mision;
@@ -79,28 +57,41 @@
                 valor = Convert.ToInt32(Console.ReadLine());
                 miembro = Principal.ObtenerUsuario(valor);
 
-                listaMiembros.Add(miembro);
-
-                Console.WriteLine("Miembro agregado exitosamente.");
+                if (miembro != null)
+                {
+                    listaMiembros.Add(miembro);
+                    Console.WriteLine("Miembro agregado exitosamente.");
+                }
+                else
+                {
+                    Console.WriteLine("Error: Miembro no encontrado.");
+                }
                 break;
 
             case 2:
                 Console.Write("ID del responsable de la mision: ");
                 valor = Convert.ToInt32(Console.ReadLine());
-                Ciudadano responsable = Principal.ObtenerUsuario(valor);
+                Ciudadano? responsable = Principal.ObtenerUsuario(valor);
 
-                Console.Write("Estado inicial (PLANIFICADA / EN_CURSO / FINALIZADA): ");
-                string estadoTexto = Console.ReadLine();
-                Estado estado = Estado.PLANIFICADA;
+                if (responsable != null)
+                {
+                    Console.Write("Estado inicial (PLANIFICADA / EN_CURSO / FINALIZADA): ");
+                    string estadoTexto = Console.ReadLine();
+                    Estado estado = Estado.PLANIFICADA;
 
-                if (estadoTexto.ToUpper() == "EN_CURSO") { estado = Estado.EN_CURSO; }
-                else if (estadoTexto.ToUpper() == "FINALIZADA") { estado = Estado.FINALIZADA; }
+                    if (estadoTexto.ToUpper() == "EN_CURSO") { estado = Estado.EN_CURSO; }
+                    else if (estadoTexto.ToUpper() == "FINALIZADA") { estado = Estado.FINALIZADA; }
 
-                mision = new Mision(estado, responsable);
-                mision.Codigo = Principal.ActualizarIDGlobalMision();
-                listaMisiones.Add(mision);
+                    mision = new Mision(estado, responsable);
+                    mision.Codigo = Principal.ActualizarIDGlobalMision();
+                    listaMisiones.Add(mision);
 
-                Console.WriteLine("Mision agregada exitosamente.");
+                    Console.WriteLine("Mision agregada exitosamente.");
+                }
+                else
+                {
+                    Console.WriteLine("Error: Responsable no encontrado.");
+                }
                 break;
 
             case 3:
@@ -121,7 +112,7 @@
         }
     }
 
-    public void ModificarElemento(Ciudadano ciudadano)
+    public override void ModificarElemento(Ciudadano ciudadano)
     {
         Mision mision;
         Recursos recursoViejo;
@@ -140,27 +131,32 @@
                 Console.Write("Codigo de la mision: ");
                 valor = Convert.ToInt32(Console.ReadLine());
                 mision = Principal.ObtenerMision(valor);
-                
-                mision.GestionarElemento(ciudadano);
-                
-                Console.WriteLine("Mision modificada exitosamente.");
+
+                if (mision != null)
+                {
+                    mision.GestionarElemento(ciudadano);
+                    Console.WriteLine("Mision modificada exitosamente.");
+                }
+                else
+                {
+                    Console.WriteLine("Error: Mision no encontrada.");
+                }
                 break;
             case 2:
                 Console.Write("Tipo de recurso a modificar: ");
                 tipo = Console.ReadLine();
 
-                // Consultar con Nacho
                 recursoViejo = listaRecursos.FirstOrDefault(r => r.tipo == tipo);
 
                 if (recursoViejo.tipo != null)
                 {
                     Console.Write("Nueva cantidad: ");
                     valor = Convert.ToInt32(Console.ReadLine());
-                    
+
                     listaRecursos.Remove(recursoViejo);
                     recursoNuevo = new Recursos { tipo = tipo, cantidad = valor };
                     listaRecursos.Add(recursoNuevo);
-                    
+
                     Console.WriteLine("Recurso modificado exitosamente.");
                 }
                 else
@@ -174,7 +170,7 @@
         }
     }
 
-    public void EliminarElemento(Ciudadano ciudadano)
+    public override void EliminarElemento(Ciudadano ciudadano)
     {
         Ciudadano miembro;
         Mision mision;
@@ -194,27 +190,38 @@
                 Console.Write("ID del miembro a eliminar: ");
                 valor = Convert.ToInt32(Console.ReadLine());
                 miembro = Principal.ObtenerUsuario(valor);
-                
-                listaMiembros.Remove(miembro);
-                
-                Console.WriteLine("Miembro eliminado exitosamente.");
+
+                if (miembro != null)
+                {
+                    listaMiembros.Remove(miembro);
+                    Console.WriteLine("Miembro eliminado exitosamente.");
+                }
+                else
+                {
+                    Console.WriteLine("Error: Miembro no encontrado.");
+                }
                 break;
             case 2:
                 Console.Write("Codigo de la mision a eliminar: ");
                 valor = Convert.ToInt32(Console.ReadLine());
                 mision = Principal.ObtenerMision(valor);
-                
-                listaMisiones.Remove(mision);
-                
-                Console.WriteLine("Mision eliminada exitosamente.");
+
+                if (mision != null)
+                {
+                    listaMisiones.Remove(mision);
+                    Console.WriteLine("Mision eliminada exitosamente.");
+                }
+                else
+                {
+                    Console.WriteLine("Error: Mision no encontrada.");
+                }
                 break;
             case 3:
                 Console.Write("Tipo de recurso a eliminar: ");
                 tipo = Console.ReadLine();
 
-                // Consultar con Nacho
                 recurso = listaRecursos.FirstOrDefault(r => r.tipo == tipo);
-                
+
                 if (recurso.tipo != null)
                 {
                     listaRecursos.Remove(recurso);
